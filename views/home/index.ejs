@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <%- include('partials/head') %>
-    <h1>📕Welcome to the Recipe Manager</h1>
-
+   <%- include('../partials/head') %>
+    <title>📕Recipe collection</title>
 </head>
 <body>
     <% if (user) { %>
      <!-- Navigation Bar -->
     <nav class="teal">
         <div class="nav-wrapper">
-            <a href="/" class="brand-logo center">📕Recipe collection</a>
+            <p class="brand-logo center"></p>>Home</p>
         </div>
     </nav>
 <div class="container">
     <div class="center-align" id="bottomMargin">
-        <a href="/recipes" class="btn">Go to Recipes Page</a>
+        <a href="/recipes" class="btn">Go to recipes Page</a>
     </div>
     <div class="center-align" style="margin-top: 40px;">
             <!-- new sign out link -->
@@ -26,6 +24,7 @@
         </div>
     </div>
 <% } else { %>
+
   <!-- Welcome message for guests -->
         <div class="welcome-message">
             <h4>Welcome to the app, guest.</h4>
@@ -35,4 +34,4 @@
 
     <% } %>
 </body>
-</html>MONGODB_URI
+</html>

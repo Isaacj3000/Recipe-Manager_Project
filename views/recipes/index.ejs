@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <title><%= title %></title>
+   <link rel="stylesheet" href="/public/css/style.css"/>
+</head>
+<body>
+      <!-- Navigation Bar -->
+      <nav class="teal">
+        <div class="nav-wrapper">
+            <a href="/recipes" class="brand-logo center">📕Recipe collection</a>
+        </div>
+    </nav>
+    <ul class="collection">
+        <% for( let index = 0; index < recipes.length; index++ ) { %>
+            <li class="collection-item">
+        <a href="/recipes/<%= recipes[index].id %>"><strong><%= recipes[index].title %></strong> by <%= recipes[index].author %></a>
+        <div style="margin-left: 50px;">
+            <span style="font-size: smaller;color: rgb(252, 246, 134);">
+                    Created by: <strong>
+                        <!-- turnary operator for two scenarios -->
+                        <%= recipes[index].createdBy ? recipes[index].createdBy.username : 'Unknown' %>
+                    </strong>
+                </span>
+                <span style="font-size: smaller;color: lightseagreen;">
+                    <%= recipes[index].formattedDate ? recipes[index].formattedDate : 'Date not available' %>
+                </span>
+        </div>
+        </li>
+        <% } %>
+    </ul>
+    <div class="container">
+        <h1 class="center-align">Recipes List</h1>
+        <ul class="collection">
+            <% recipes.forEach(recipe => { %>
+            <li class="collection-item">
+                <a href="/recipes=/<%= recipe._id %>">
+                    <strong><%= recipe.title %></strong> by <%= recipe.author %>
+                </a>
+                <div class="recipe-container">
+                    <span class="created-by">
+                        Created by: <strong>
+                            <%= recipe.createdBy ? recipe.createdBy.username : 'Unknown' %>
+                        </strong>
+                    </span>
+                    <span class="created-by">
+                        <%= recipe.formattedDate ? recipe.formattedDate : 'Date not available' %>
+                    </span>
+                </div>
+                <% recipe.comments.forEach(comment => { %>
+                <p class="comment">
+                    <% if (comment.createdBy) { %>
+                    <%= comment.createdBy.username %>
+                    <% } %>
+                    <%= comment.content %>
+                </p>
+                <% }) %>
+                <form action="/recipes/<%= recipe._id %>/comments" method="POST">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">comment</i>
+                                    <textarea name="content" id="icon_prefix2"
+                                        class="tiny materialize-textarea"></textarea>
+                                    <input class="comment-input" type="submit" value="Comment">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </form>
+            </li>
+            <% }); %>
+        </ul>
+        <div class="center-align">
+            <a href="/recipe/new" class="btn waves-effect waves-light teal">Add a New Recipe</a>
+        </div>
+    </div>
+</body>
+</html>

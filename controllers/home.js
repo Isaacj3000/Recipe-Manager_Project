@@ -1,7 +1,6 @@
 function index(req, res) {
-    if(!req.session.user){
-        return res.redirect('/auth/sign-in');
-    }
+    // if(!req.session.user){
+    
     res.render('home', { title: 'Home Page', user: req.session.user });
 }
 

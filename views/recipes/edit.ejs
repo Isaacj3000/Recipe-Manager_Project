@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head') %>
+    <title>Edit Page</title>
+    <link rel="stylesheet" href="/public/css/style.css"/>
+
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="teal">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo center">📕Recipe collection</a>
+        </div>
+    </nav>
+    <!-- TODO:  main content -->
+     <div class="container">
+        <form action="/recipes/<%= recipe.id %>?_method=PUT" method="POST" class="col s12">
+            <!-- Title field -->
+             <div class="row">
+                <div class="input-field col s12">
+                   <input type="text" name="title" id="title" value="<%= recipe.title %>" required>
+                   <label for="title">Title</label>
+                </div>
+             </div>
+             <!-- Author field -->
+               <div class="row">
+                <div class="input-field col s12">
+                   <input type="text" name="author" id="author" value="<%= recipe.author %>" required>
+                   <label for="author">Author</label>
+                </div>
+             </div>
+              <!-- Submit button -->
+               <div class="row center-align">
+            <button type="submit" class="btn wave-effect wave-light teal">Update</button>
+               </div>
+        </form>
+     </div>
+</body>
+</html>

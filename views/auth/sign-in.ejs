@@ -1,18 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In</title>
+ <html lang="en">
+ 
+ <head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <%- include ('../partials/head') %>
+   <title>Sign In</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <style>
+     body {
+       background-color: #814f2832;
+       font-family: 'Arial', sans-serif;
+     }
+ 
+     .container {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 100vh;
+     }
+ 
+     .form-container {
+       background-color: white;
+       padding: 30px;
+       border-radius: 10px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+       width: 100%;
+       max-width: 400px;
+     }
+ 
+     h4 {
+       text-align: center;
+       font-size: 24px;
+       margin-bottom: 20px;
+       color: #333;
+     }
+ 
+     .input-field {
+       margin-bottom: 20px;
+     }
+ 
+     .input-field label {
+       font-size: 14px;
+       font-weight: bold;
+       color: #555;
+     }
+ 
+     .input-field input {
+       width: 100%;
+       padding: 10px;
+       font-size: 16px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       margin-top: 5px;
+     }
+ 
+     .input-field input:focus {
+       border-color: #009688;
+       outline: none;
+     }
+ 
+     .btn {
+       width: 100%;
+       padding: 12px;
+       font-size: 16px;
+       border-radius: 5px;
+       cursor: pointer;
+     }
+ 
+     .btn.teal {
+       background-color: #009688;
+       color: white;
+     }
+ 
+     .btn.pink {
+       background-color: #e91e63;
+       color: white;
+     }
+ 
+     .btn:hover {
+       opacity: 0.9;
+     }
+ 
+     .link {
+       display: block;
+       text-align: center;
+       margin-top: 20px;
+       font-size: 14px;
+       color: #555;
+     }
+ 
+     .link a {
+       color: #009688;
+       text-decoration: none;
+     }
+ 
+     .link a:hover {
+       text-decoration: underline;
+     }
+   </style>
 </head>
-<body>
-  <h1>Sign in</h1>
-  <form action="/auth/sign-in" method="POST">
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required />
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required />
-    <button type="submit">Sign in</button>
-  </form>
-</body>
-</html>
+ 
+ <body>
+   <div class="container">
+     <div class="form-container">
+       <h4>Sign In</h4>
+       <form action="/auth/sign-in" method="POST">
+         <div class="input-field">
+           <label for="username">Username:</label>
+           <input type="text" name="username" id="username" placeholder="Enter your username" required />
+         </div>
+         <div class="input-field">
+           <label for="password">Password:</label>
+           <input type="password" name="password" id="password" placeholder="Enter your password" required />
+         </div>
+         <button type="submit" class="btn teal waves-effect waves-light">Sign In</button>
+         <div class="link">
+           <p>If you don't have an account:</p>
+           <a href="/auth/sign-up" class="btn waves-effect waves-light pink">Sign Up</a>
+         </div>
+       </form>
+     </div>
+   </div>
+ </body>
+ 
+ </html>
+ 
