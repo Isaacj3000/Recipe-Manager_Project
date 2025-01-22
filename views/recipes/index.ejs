@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <%- include('../partials/head') %>
    <title><%= title %></title>
 </head>
 <body>
@@ -32,7 +32,7 @@
         <% } %>
     </ul>
     <div class="container">
-        <h1 class="center-align">Recipes List</h1>
+        <h1 class="center-align">Your Recipes</h1>
         <ul class="collection">
             <% recipes.forEach(recipe => { %>
             <li class="collection-item">
