@@ -11,6 +11,7 @@ const MongoConnect = require('connect-mongo');
 const path = require('path');
 const isSignedIn = require('./middleware/is-signed-in.js');
 const passUserToView = require('./middleware/pass-user-to-view.js');
+// const recipeRouter = require('./routes/recipe.js')
 
 // require('./configs/database');
 
@@ -24,6 +25,7 @@ mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
+app.use(express.static('public')) //Tells Express to serve static files from the public/ folder.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
@@ -31,11 +33,12 @@ app.use(methodOverride('_method'));
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: MongoConnect.create({
         mongoUrl: process.env.MONGODB_URI
     }),
-    cookie: { secure: process.env.NODE_ENV === 'Production', httpOnly: true}
+    // cookie: { secure: process.env.NODE_ENV === 'Production', httpOnly: true}
+    cookie: { secure: false, httpOnly: true }  // Set secure to false for local
 }))
 
 
@@ -56,8 +59,10 @@ app.use('/auth', require('./routes/auth.js'));
 
 // Home Route
 app.use('/', require('./routes/home.js'));
+
 // is signedIn
 app.use(isSignedIn);
+
 //recipe route
 app.use('/', require('./routes/recipe.js'));
 
