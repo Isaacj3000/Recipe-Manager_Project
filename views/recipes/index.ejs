@@ -10,7 +10,7 @@
       <!-- Navigation Bar -->
       <nav class="teal">
         <div class="nav-wrapper">
-            <a href="/recipes" class="brand-logo center">📕Recipe collection</a>
+            <a href="/recipes" class="brand-logo center">📕 Favorite Recipes</a>
         </div>
     </nav>
     <ul class="collection">
@@ -73,10 +73,11 @@
                 </form>
             </li>
             <% }); %>
-        </ul>
-        <div class="center-align">
-            <a href="/recipe/new" class="btn waves-effect waves-light teal">Add a New Recipe</a>
-        </div>
-    </div>
+        </ul> 
+        <% if (user) { %>
+            <div class="center-align">
+                <a href="/recipes/new" class="btn waves-effect waves-light teal">Add a New Recipe</a>
+            </div>
+        <% } %>
 </body>
 </html>
