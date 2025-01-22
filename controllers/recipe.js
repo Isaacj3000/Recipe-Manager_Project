@@ -8,14 +8,15 @@ async function index(req, res) {
 
     try {
         if (!req.session.user) {
-            return res.redirect('auth/sign-in')
+            return res.redirect('/auth/sign-in')
         }
         const recipes = await Recipe.find({}).populate('createdBy', 'username').populate('comments.createdBy', 'username');
         const formattedRecipes = recipes.map(recipe => ({
-            ...recipe.toObject(),  //
+            ...recipe.toObject(),  // corrected recipe to object
             formattedDate: moment(recipe.createdAt).fromNow()
         }))
-        res.render('recipes', { title: 'recipe List ', recipes: formattedRecipe })
+        res.render('recipes', { title: 'Recipe List ', recipes: formattedRecipes, 
+            user: req.session.user}) // Pass user session to check authentication
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Internal server error');
