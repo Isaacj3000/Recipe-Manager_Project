@@ -3,35 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <%- include('../partials/head') %>
-    <title>📕Recipe collection</title>
+    <%- include('../partials/head') %>
+    <title>📕 Recipe Collection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #26a69a;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .nav-wrapper .brand-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            background-color: #26a69a;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #1e8076;
+        }
+        .center-align {
+            text-align: center;
+        }
+        .welcome-message {
+            text-align: center;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h4 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
 </head>
 <body>
     <% if (user) { %>
-     <!-- Navigation Bar -->
-    <nav class="teal">
+    <!-- Navigation Bar -->
+    <nav>
         <div class="nav-wrapper">
-            <p class="brand-logo center"></p>Home</p>
+            <p class="brand-logo center">Home</p>
         </div>
     </nav>
-<div class="container">
-    <div class="center-align" id="bottomMargin">
-        <a href="/recipes" class="btn">My recipes</a>
-    </div>
-    <div class="center-align" style="margin-top: 40px;">
-            <!-- new sign out link -->
-            <a href="/auth/sign-out" class="btn teal center-align">Sign out</a>
+    <div class="container">
+        <div class="center-align" id="bottomMargin">
+            <a href="/recipes" class="btn">My Recipes</a>
+        </div>
+        <div class="center-align" style="margin-top: 40px;">
+            <a href="/auth/sign-out" class="btn">Sign Out</a>
         </div>
     </div>
-<% } else { %>
-
-  <!-- Welcome message for guests -->
-        <div class="welcome-message">
-            <h4>Welcome to the app, guest.</h4>
-            <p>
-                <a href="/auth/sign-up" class="btn teal">Sign up</a> or <a href="/auth/sign-in" class="btn teal">Sign in</a>            </p>
-        </div>
-
+    <% } else { %>
+    <!-- Welcome message for guests -->
+    <div class="welcome-message">
+        <h4>Welcome to Recipe Manager!</h4>
+        <p>Your personalized recipe collection awaits.</p>
+        <p>
+            <a href="/auth/sign-up" class="btn">Sign Up</a> or <a href="/auth/sign-in" class="btn">Sign In</a>
+        </p>
+    </div>
     <% } %>
 </body>
 </html>
