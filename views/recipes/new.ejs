@@ -4,66 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('../partials/head.ejs') %>
-    <title>Document</title>
+    <title>Add New Recipe</title>
     <link rel="stylesheet" href="/public/css/style.css"/>
-
 </head>
 <body>
+
     <!-- Navigation Bar -->
-   <nav class="teal">
-    <div class="nav-wrapper">
-        <a href="/" class="brand-logo center">📕Recipes collection</a>
-    </div>
-   </nav>
-<!-- Main Content -->
-<div class="container" id="bottomMargin">
-<h2 class="center-align">Add a New Recipe</h2>
-<!-- POST ROUTE -->
-<form action="/recipes" method="POST" class="col s12">
-    <div class="row">
-        <div class="input-field col s6">
-          <input type="text" name="name" id="name" required>
-          <label for="title">Name</label>
+    <nav class="teal">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo center">📕 Recipe Collection</a>
         </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h3 class="center-align">Add a New Recipe</h3>
+
+        <form action="/recipes" method="POST" class="col s12">
+            
+            <!-- Title field -->
+            <div class="row">
+                <div class="input-field col s12">
+                   <input type="text" name="title" id="title" required>
+                   <label for="title">Recipe Title</label>
+                </div>
+            </div>
+
+            <!-- Category dropdown -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <select name="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="dessert">Dessert</option>
+                    </select>
+                    <label>Category</label>
+                </div>
+            </div>
+
+            <!-- Ingredients (Multiple Inputs) separate each ingredient with a comma-->
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea name="ingredients" id="ingredients" class="materialize-textarea" required></textarea>
+                    <label for="ingredients">Ingredients</label>
+                </div>
+            </div>
+
+            <!-- Rating dropdown -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <select name="rating" required>
+                        <option value="" disabled selected>Rate this recipe</option>
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="5">5 - Excellent</option>
+                    </select>
+                    <label>Rating</label>
+                </div>
+            </div>
+
+            <!-- Submit & Cancel Buttons -->
+            <div class="row center-align">
+                <button type="submit" class="btn waves-effect waves-light teal">Submit</button>
+                <a href="/recipes" class="btn waves-effect waves-light red">Cancel</a>
+            </div>
+
+        </form>
     </div>
-     <div class="row">
-        <div class="input-field col s6">
-          <input type="text" name="category" id="" required>
-          <label for="author">Category</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s6">
-            <input type="text" name="ingredient" id="ingredients" required>
-            <label for="ingredient">Ingredient</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s6"> <!-- Reduced column width from s12 to s6 -->
-            <select name="rating" class="small-select" required>
-                <option value="" disabled selected>Choose your rating</option>
-                <option value="1">1 - Poor</option>
-                <option value="2">2 - Fair</option>
-                <option value="3">3 - Good</option>
-                <option value="4">4 - Very Good</option>
-                <option value="5">5 - Excellent</option>
-            </select>
-            <label>How would you rate this?</label>
-        </div>
-    </div>
-    
-    <div class="row center-align">
-        <button type="submit" class="btn waves-effect waves-light teal">Submit</button>
-        <a href="javascript:history.back()" class="btn waves-effect waves-light orange">Back</a>
-    </div>
-    
+
+    <!-- Materialize Initialization -->
+     <!-- ensures that the dropdown select elements work properly -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems);
+            M.FormSelect.init(elems);
         });
     </script>
-</form>
-</div>
+
 </body>
 </html>
