@@ -21,10 +21,7 @@ async function index(req, res) {
         console.error(error.message);
         res.status(500).send('Internal server error');
     }
-
 }
-
-
 // Render new recipe form
 function newRecipe(req, res) {
     res.render('recipes/new', { title: 'New Recipe' });
@@ -47,7 +44,7 @@ async function postRecipe(req, res) {
     }
 }
 
-// Show a single recipe
+// Show a recipe
 async function showRecipe(req, res) {
     try {
         const recipe = await Recipe.findById(req.params.id).populate('comments.createdBy');
