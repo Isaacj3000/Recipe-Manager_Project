@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/head') %>
+    <title><%= title %></title>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="teal">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo center">Show Recipe</a>
+        </div>
+    </nav>
+    <!-- main content -->
+     <div class="container bottomMargin" >
+        <div class="card">
+            <div class="card-content">
+                <p><strong>Title:</strong><%= recipe.title %></p>
+                <p><strong>Category:</strong><%= recipe.category %></p>
+                <p><strong>Ingredient:</strong><%= recipe.ingredient%></p>
+            </div>
+            <div class="card-action">
+                <a href="/recipes%>/edit" class="btn waves-effect waves-light teal">Edit</a>
+                <form action="/recipes/<%= recipe.id %>?_method=DELETE" method="POST">
+                <button class="btn red waves-effect waves-light">Delete</button>
+                </form>
+            </div>
+        </div>
+     </div>
+</body>
+</html>
