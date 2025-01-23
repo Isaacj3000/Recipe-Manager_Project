@@ -1,43 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('../partials/head') %>
-   <title><%= title %></title>
+    <title><%= title %></title>
 </head>
+
+
 <body>
-      <!-- Navigation Bar -->
-      <nav class="teal">
-        <div class="nav-wrapper">
-            <a href="/recipes" class="brand-logo center">📕 Favorite Recipes</a>
+    <nav>
+        <div class="nav-wrapper teal">
+            <a href="/" class="brand-logo center">Home</a>
         </div>
     </nav>
-    <ul class="collection">
-        <% for( let index = 0; index < recipes.length; index++ ) { %>
-            <li class="collection-item">
-        <a href="/recipes/<%= recipes[index].id %>"><strong><%= recipes[index].title %></strong> by <%= recipes[index].author %></a>
-        <div style="margin-left: 50px;">
-            <span style="font-size: smaller;color: rgb(252, 246, 134);">
-                    Created by: <strong>
-                        <!-- turnary operator for two scenarios -->
-                        <%= recipes[index].createdBy ? recipes[index].createdBy.username : 'Unknown' %>
-                    </strong>
-                </span>
-                <span style="font-size: smaller;color: lightseagreen;">
-                    <%= recipes[index].formattedDate ? recipes[index].formattedDate : 'Date not available' %>
-                </span>
-        </div>
-        </li>
-        <% } %>
-    </ul>
     <div class="container">
-        <h1 class="center-align">Your Recipes</h1>
+        <h1 class="center-align">Recipes List</h1>
         <ul class="collection">
             <% recipes.forEach(recipe => { %>
             <li class="collection-item">
-                <a href="/recipes=/<%= recipe._id %>">
-                    <strong><%= recipe.title %></strong> by <%= recipe.author %>
+                <a href="/recipes/<%= recipe._id %>">
+                    <strong><%= recipe.title %></strong> by <%= recipe.category %> by <%= recipe.ingredients %> 
+                    
                 </a>
                 <div class="recipe-container">
                     <span class="created-by">
@@ -73,11 +56,14 @@
                 </form>
             </li>
             <% }); %>
-        </ul> 
-        <% if (user) { %>
-            <div class="center-align">
-                <a href="/recipes/new" class="btn waves-effect waves-light teal">Add a New Recipe</a>
-            </div>
-        <% } %>
+        </ul>
+        <div class="center-align">
+            <a href="/recipes/new" class="btn waves-effect waves-light teal">Add a New recipes</a>
+        </div>
+    </div>
+
+
+
 </body>
+
 </html>

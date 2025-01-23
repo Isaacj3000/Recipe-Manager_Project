@@ -27,7 +27,7 @@ mongoose.connection.on('connected', () => {
 
 app.use(express.static('public')) //Tells Express to serve static files from the public/ folder.
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(methodOverride('_method'));
 app.use(session({

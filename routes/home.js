@@ -1,6 +1,13 @@
-const router = require('express').Router();
+
 const homeCtrl = require('../controllers/home');
 
-router.get('/', homeCtrl.index)
 
-module.exports = router
+const express = require('express');
+const router = express.Router();
+const isSignedIn = require('../middleware/is-signed-in.js');
+
+router.get('/', isSignedIn, (req, res) => {
+    res.render('home', { user: req.session.user });
+});
+
+module.exports = router;

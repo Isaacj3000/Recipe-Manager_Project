@@ -5,19 +5,23 @@ const commentSchema = new mongoose.Schema({
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        required: false //  Allows guest comments
     }
 }, { timestamps: true });
 
 const recipeSchema = new mongoose.Schema({
-    name: { type: String, required: true, trim: true },
+    title: { type: String, required: true, trim: true }, // Changed 'name' to 'title'
     category: { 
         type: String, 
         required: true, 
         enum: ['breakfast', 'lunch', 'dinner', 'supper', 'dessert', 'snack'] 
     },
-    ingredients: [{ type: String, required: true, trim: true }], // List of ingredient names
-    comments: [commentSchema], // Comments embedded as subdocuments
+    ingredients: [{
+        name: { type: String, required: true, trim: true },
+        quantity: { type: String, required: false, trim: true } // Allows optional quantity
+    }],
+    rating: { type: Number, min: 1, max: 5, default: 3 }, // Added rating field
+    comments: [commentSchema], // Embedded comments as subdocuments
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

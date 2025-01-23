@@ -42,69 +42,40 @@ function signIn(req, res) {
     res.render("auth/sign-in")
 }
 
-// async function signinPost(req, res) {
-
-//     try {
-
-//         const { username, password } = req.body;
-
-//         if (!username || !password) {
-//             return res.status(400).json({ message: "Username and password are required." })
-//         }
-
-//         const userInDatabase = await User.findOne({ username });
-//         if (!userInDatabase) {
-//             return res.status(401).json({ message: "Login failed. Invalid username" })
-//         }
-
-//         const validPassword = await bcrypt.compare(password, userInDatabase.password);
-//         if (!validPassword) {
-//             return res.status(401).json({ message: "Login Failed, Invalid password" })
-//         }
-
-//         req.session.user = {
-//             id: userInDatabase._id,
-//             username: userInDatabase.username
-//         }
-//         // res.render('home', {user: userInDatabase});
-//         // res.status(200).render('index', {user: userInDatabase});
-//     } catch (error) {
-//         console.error('Error during sign in:', error);
-//         res.status(500).json({ message: "An error occurred during sign in. Please try again." })
-//     }
-
-// }
 async function signinPost(req, res) {
-    try {
-        const { username, password } = req.body;
+   try {
+      const { username, password } = req.body;
 
-        if (!username || !password) {
-            return res.status(400).json({ message: "Username and password are required." });
-        }
+      // Validate input
+      if (!username || !password) {
+         return res.status(400).json({ message: "Username and password are required." });
+      }
 
-        const userInDatabase = await User.findOne({ username });
-        if (!userInDatabase) {
-            return res.status(401).json({ message: "Login failed. Invalid username" });
-        }
+      // Check if user exists in the database
+      const userInDatabase = await User.findOne({ username });
+      if (!userInDatabase) {
+         return res.status(401).json({ message: "Login failed. Invalid username" });
+      }
 
-        const validPassword = await bcrypt.compare(password, userInDatabase.password);
-        if (!validPassword) {
-            return res.status(401).json({ message: "Login failed. Invalid password" });
-        }
+      // Validate password
+      const validPassword = await bcrypt.compare(password, userInDatabase.password);
+      if (!validPassword) {
+         return res.status(401).json({ message: "Login Failed, Invalid password" });
+      }
 
-        // Set session user and log for debugging
-        req.session.user = {
-            id: userInDatabase._id,
-            username: userInDatabase.username
-        };
-        console.log('User session:', req.session.user);  // Debug log
+      // Store user session
+      req.session.user = {
+         id: userInDatabase._id,
+         username: userInDatabase.username
+      };
 
-        // Use a redirect instead of render to ensure session middleware works
-        res.redirect('/');
-    } catch (error) {
-        console.error('Error during sign in:', error);
-        res.status(500).json({ message: "An error occurred during sign in. Please try again." });
-    }
+      // Render a single view or send JSON response
+      res.render('home', { user: userInDatabase }); // ✅ Removed extra res.render()
+
+   } catch (error) {
+      console.error('Error during sign in:', error);
+      res.status(500).json({ message: "An error occurred during sign in. Please try again." });
+   }
 }
 
 
