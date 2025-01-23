@@ -1,128 +1,191 @@
 <!DOCTYPE html>
- <html lang="en">
- 
- <head>
-   <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <%- include ('../partials/head') %>
-   <title>Sign In</title>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-   <style>
-     body {
-       background-color: #814f2832;
-       font-family: 'Arial', sans-serif;
-     }
- 
-     .container {
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       height: 100vh;
-     }
- 
-     .form-container {
-       background-color: white;
-       padding: 30px;
-       border-radius: 10px;
-       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-       width: 100%;
-       max-width: 400px;
-     }
- 
-     h4 {
-       text-align: center;
-       font-size: 24px;
-       margin-bottom: 20px;
-       color: #333;
-     }
- 
-     .input-field {
-       margin-bottom: 20px;
-     }
- 
-     .input-field label {
-       font-size: 14px;
-       font-weight: bold;
-       color: #555;
-     }
- 
-     .input-field input {
-       width: 100%;
-       padding: 10px;
-       font-size: 16px;
-       border: 1px solid #ccc;
-       border-radius: 5px;
-       margin-top: 5px;
-     }
- 
-     .input-field input:focus {
-       border-color: #009688;
-       outline: none;
-     }
- 
-     .btn {
-       width: 100%;
-       padding: 12px;
-       font-size: 16px;
-       border-radius: 5px;
-       cursor: pointer;
-     }
- 
-     .btn.teal {
-       background-color: #009688;
-       color: white;
-     }
- 
-     .btn.pink {
-       background-color: #e91e63;
-       color: white;
-     }
- 
-     .btn:hover {
-       opacity: 0.9;
-     }
- 
-     .link {
-       display: block;
-       text-align: center;
-       margin-top: 20px;
-       font-size: 14px;
-       color: #555;
-     }
- 
-     .link a {
-       color: #009688;
-       text-decoration: none;
-     }
- 
-     .link a:hover {
-       text-decoration: underline;
-     }
-   </style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include ('../partials/head') %>
+    <title>Sign In</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: #f7f3ee;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h4 {
+            font-size: 26px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .input-field label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-top: 5px;
+            transition: border 0.3s;
+        }
+
+        .input-field input:focus {
+            border-color: #009688;
+            outline: none;
+        }
+
+        /* Password Field Styling */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 40px; /* Space for icon */
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+            font-size: 18px;
+        }
+
+        .toggle-password:hover {
+            color: #009688;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 600;
+        }
+
+        .btn.teal {
+            background-color: #009688;
+            color: white;
+        }
+
+        .btn.pink {
+            background-color: #e91e63;
+            color: white;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .link a {
+            color: #009688;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
 </head>
- 
- <body>
-   <div class="container">
-     <div class="form-container">
-       <h4>Sign In</h4>
-       <form action="/auth/sign-in" method="POST">
-         <div class="input-field">
-           <label for="username">Username:</label>
-           <input type="text" name="username" id="username" placeholder="Enter your username" required />
-         </div>
-         <div class="input-field">
-           <label for="password">Password:</label>
-           <input type="password" name="password" id="password" placeholder="Enter your password" required />
-         </div>
-         <button type="submit" class="btn teal waves-effect waves-light">Sign In</button>
-         <div class="link">
-           <p>If you don't have an account:</p>
-           <a href="/auth/sign-up" class="btn waves-effect waves-light pink">Sign Up</a>
-         </div>
-       </form>
-     </div>
-   </div>
- </body>
- 
- </html>
- 
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h4>Sign In</h4>
+            <form action="/auth/sign-in" method="POST">
+                <div class="input-field">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" placeholder="Enter your username" required />
+                </div>
+
+                <div class="input-field password-wrapper">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" placeholder="Enter your password" required />
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
+                </div>
+
+                <button type="submit" class="btn teal">Sign In</button>
+
+                <div class="link">
+                    <p>Don't have an account?</p>
+                    <a href="/auth/sign-up" class="btn pink">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            var icon = document.querySelector(".toggle-password");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+</html>
