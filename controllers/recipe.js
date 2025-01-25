@@ -30,9 +30,9 @@ function newRecipe(req, res) {
 // Add a new recipe
 async function postRecipe(req, res) {
     try {
-        const { name, category, ingredients } = req.body;
+        const { title, category, ingredients } = req.body;
         const newRecipe = new Recipe({ 
-            name: name,
+            title: title,
             category: category,
             ingredients: ingredients,
             createdBy: req.session.user.id });
