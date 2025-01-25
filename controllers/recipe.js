@@ -30,20 +30,38 @@ function newRecipe(req, res) {
 // Add a new recipe
 async function postRecipe(req, res) {
     try {
+        if (!req.session.user) {
+            return res.status(401).json({ message: "Unauthorized: Please log in" });
+        }
+
         const { title, category, ingredients } = req.body;
+
+        // Ensure ingredients is an array of objects
+        let formattedIngredients;
+        if (typeof ingredients === "string") {
+            formattedIngredients = ingredients.split(',').map(ing => ({ name: ing.trim() }));
+        } else {
+            formattedIngredients = ingredients; // If already an array, use as-is
+        }
+
         const newRecipe = new Recipe({ 
-            title: title,
-            category: category,
-            ingredients: ingredients,
-            createdBy: req.session.user.id });
+            title,
+            category,
+            ingredients: formattedIngredients, 
+            createdBy: req.session.user.id 
+        });
+
         await newRecipe.save();
-        res.status(201).redirect('/recipe');
+        console.log("Recipe created:", newRecipe); // Debugging log
+
+        // Redirect to correct route
+        res.status(201).redirect('/recipes'); // Ensure this matches your GET route
+
     } catch (error) {
-        console.error(error.message);
+        console.error("Error creating recipe:", error.message);
         res.status(500).send('Internal Server Error');
     }
 }
-
 // Show a recipe
 async function showRecipe(req, res) {
     try {
