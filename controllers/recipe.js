@@ -10,8 +10,10 @@ async function index(req, res) {
         if (!req.session.user) {
             return res.redirect('/auth/sign-in')
         }
-        const recipes = await Recipe.find({}).populate('createdBy', 'username').populate('comments.createdBy', 'username');
-        const formattedRecipes = recipes.map(recipe => ({
+        const recipes = await Recipe.find({})
+        .populate('createdBy', 'username') 
+        .populate('comments.createdBy', 'username');
+            const formattedRecipes = recipes.map(recipe => ({
             ...recipe.toObject(),  // corrected recipe to object
             formattedDate: moment(recipe.createdAt).fromNow()
         }))

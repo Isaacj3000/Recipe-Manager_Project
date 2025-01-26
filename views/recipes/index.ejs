@@ -6,7 +6,6 @@
     <title><%= title %></title>
 </head>
 
-
 <body>
     <nav>
         <div class="nav-wrapper teal">
@@ -19,9 +18,12 @@
             <% recipes.forEach(recipe => { %>
             <li class="collection-item">
                 <a href="/recipes/<%= recipe._id %>">
-                    <strong><%= recipe.title %></strong> by <%= recipe.category %> by <%= recipe.ingredients %> 
-                    
+                    <strong><%= recipe.title %></strong> - <%= recipe.category %> -
+                    Ingredients: <%= recipe.ingredients.map(ing => ing.name).join(', ') %> -
+                    Created by: <%= recipe.createdBy && recipe.createdBy.username ? recipe.createdBy.username : 'Unknown' %>
                 </a>
+                
+
                 <div class="recipe-container">
                     <span class="created-by">
                         Created by: <strong>
@@ -32,17 +34,21 @@
                         <%= recipe.formattedDate ? recipe.formattedDate : 'Date not available' %>
                     </span>
                 </div>
+
+                <!-- Comments Section -->
                 <% recipe.comments.forEach(comment => { %>
                 <p class="comment">
                     <% if (comment.createdBy) { %>
-                    <%= comment.createdBy.username %>
-                    <% } %>
+                        <%= comment.createdBy.username || "Guest" %>
+                    <% } %>:
                     <%= comment.content %>
                 </p>
                 <% }) %>
+
+                <!-- Add Comment Form (FIXED) -->
                 <form action="/recipes/<%= recipe._id %>/comments" method="POST">
                     <div class="row">
-                        <form class="col s12">
+                        <div class="col s12">
                             <div class="row">
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">comment</i>
@@ -51,19 +57,18 @@
                                     <input class="comment-input" type="submit" value="Comment">
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </form>
+
             </li>
             <% }); %>
         </ul>
+
         <div class="center-align">
-            <a href="/recipes/new" class="btn waves-effect waves-light teal">Add a New recipes</a>
+            <a href="/recipes/new" class="btn waves-effect waves-light teal">Add a New Recipe</a>
         </div>
     </div>
-
-
-
 </body>
 
 </html>
