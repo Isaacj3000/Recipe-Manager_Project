@@ -80,47 +80,86 @@ async function showRecipe(req, res) {
 // Add a comment to a recipe
 async function addComment(req, res) {
     try {
+        // Check if the content field exists and is not empty
+        if (!req.body.content || req.body.content.trim() === "") {
+            return res.status(400).json({ message: "Comment content cannot be empty" });
+        }
+
         const recipe = await Recipe.findById(req.params.id);
+        if (!recipe) {
+            return res.status(404).json({ message: "Recipe not found" });
+        }
+
+        // Create a new comment with trimmed content
         const newComment = {
-            content: req.body.content,
-            createdBy: req.session.user.id
+            content: req.body.content.trim(), // Prevents spaces-only comments
+            createdBy: req.session.user ? req.session.user.id : null // Allows guest comments
         };
+
         recipe.comments.push(newComment);
         await recipe.save();
+
         res.redirect(`/recipes/${req.params.id}`);
     } catch (error) {
-        console.error('Error adding new comment:', error);
-        res.status(500).send('Internal Server Error');
+        console.error("Error adding new comment:", error.message);
+        res.status(500).send("Internal Server Error");
     }
 }
 
 // Render edit form
 async function editRecipe(req, res) {
     try {
+        console.log("Edit request for Recipe ID:", req.params.id); // Debugging log
+
         const recipe = await Recipe.findById(req.params.id);
-        if (recipe) {
-            res.render('recipes/edit', { title: 'Edit Recipe', recipe });
-        } else {
-            res.status(404).render('404/notFound', { title: 'Recipe Not Found' });
+        if (!recipe) {
+            return res.status(404).send("Recipe not found");
         }
+
+        res.render('recipes/edit', { recipe });
     } catch (error) {
-        console.error(error.message);
-        res.status(500).send('Internal Server Error');
+        console.error("Error loading edit page:", error.message);
+        res.status(500).send("Internal Server Error");
     }
 }
 
 // Update a recipe
 async function updateRecipe(req, res) {
     try {
-        const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (updatedRecipe) {
-            res.redirect(`/recipes/${req.params.id}`);
+        console.log("Incoming update request:", req.body);
+
+        // Convert ingredients from a string to an array of objects
+        let formattedIngredients;
+        if (typeof req.body.ingredients === "string") {
+            formattedIngredients = req.body.ingredients.split(',').map(ing => ({ name: ing.trim() }));
         } else {
-            res.status(404).render('404/notFound', { title: 'Recipe Not Found' });
+            formattedIngredients = req.body.ingredients; // If already an array, use as-is
         }
+
+        // Ensure createdBy remains unchanged
+        const recipe = await Recipe.findById(req.params.id);
+        if (!recipe) {
+            return res.status(404).json({ message: "Recipe not found" });
+        }
+
+        // Update the recipe
+        const updatedRecipe = await Recipe.findByIdAndUpdate(
+            req.params.id,
+            { 
+                title: req.body.title,
+                category: req.body.category,
+                ingredients: formattedIngredients, // ✅ Fixes ingredient format
+                createdBy: recipe.createdBy // Prevents changing the original creator
+            },
+            { new: true, runValidators: true }
+        );
+
+        console.log("Recipe updated successfully:", updatedRecipe);
+        res.redirect(`/recipes/${req.params.id}`); // Redirect to recipe details page
+
     } catch (error) {
-        console.error(error.message);
-        res.status(500).send('Internal Server Error');
+        console.error("Error updating recipe:", error.message);
+        res.status(500).send("Internal Server Error");
     }
 }
 
